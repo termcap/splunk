@@ -1,0 +1,44 @@
+### TRANSFORMS.CONF ###
+
+## Below stanza will send all events to indx1 
+[route_to_indx2]
+REGEX = EventCode\=4634
+DEST_KEY = _TCP_ROUTING
+## Send to the below indexer group if the above regex matches the event
+FORMAT = indx2
+
+## Below stanza will send all events to indx1 
+[route_to_indx1]
+REGEX = (.)
+DEST_KEY = _TCP_ROUTING
+## Send to the below indexer group if the above regex matches the event
+FORMAT = indx1
+
+
+## Below Stanza will send all events to nullqueue
+[route_to_null]
+REGEX = (.)
+DEST_KEY = queue
+FORMAT = nullQueue
+
+## Below stanza will send matching events to indexqueue
+[route_to_indexer]
+REGEX = EventCode=(4625|4624|4634)
+DEST_KEY = queue
+FORMAT = indexQueue
+
+### PROPS.CONF ###
+[source::WinEventLog:Security]
+TRANSFORMS-routetoindexer = route_to_indx1, route_to_indx2
+TRANSFORMS-routetoqueues = route_to_null, route_to_indexer
+
+
+#The four trnsforms stanzas above will be used to 
+#1. Set Indexer to indx2 for EventCode 4634 and indx1 for the rest of the events using TRANSFORMS-routetoindexer
+#2. Only forward Events with EventCodes 4625|4624|4634 and send the rest of the events to nullqueue using TRANSFORMS-routetoqueues
+
+## END RESULT ##
+# Events with 4625|4624|4634 will be set to indexQueue and the rest will be set to indexQueue [Filtering]
+# Later events with 4634 will go to indx2 and 4625|4624 to indx2 [routing]
+
+
