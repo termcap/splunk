@@ -1,8 +1,16 @@
 #!/bin/sh
 
+if [ -z $1 ]
+then
+	echo "Please specify the ip of this node"
+	exit
+fi
+
 /opt/splunk/bin/splunk stop
 rm -rf /opt/splunk
 tar xf /home/gcp/splunk-8.2.0-e053ef3c985f-Linux-x86_64.tgz  -C /opt/
 /opt/splunk/bin/splunk start --accept-license
+./splunk init shcluster-config -auth a:12345678 -mgmt_uri https://$1:8089 -replication_port 9200 -secret mykey -shcluster_label shcluster1
+/opt/splunk/bin/splunk restart
 
 
