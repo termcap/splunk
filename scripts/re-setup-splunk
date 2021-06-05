@@ -1,0 +1,8 @@
+#!/bin/sh
+
+/opt/splunk/bin/splunk stop
+rm -rf /opt/splunk
+tar xf /home/gcp/splunk-8.2.0-e053ef3c985f-Linux-x86_64.tgz  -C /opt/
+/opt/splunk/bin/splunk start --accept-license
+
+
