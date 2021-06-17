@@ -1,5 +1,5 @@
 1. Converting excel file to csv
 2. Got a wierd UTF-8 charecter which is "non-breaking space"
-3. sed 's/\xC2\xA0/XXX/g' is the charecter to replace it
+3. sed 's/\xC2\xA0/YYY/g' is the charecter to replace this charecter
 
 https://superuser.com/questions/517847/use-sed-to-replace-nbsp-160-hex-00a0-octal-240-non-breaking-space
