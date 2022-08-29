@@ -1,0 +1,87 @@
+index="meet-book" area_name="BUATC" room_name="PEARL CAP-28" | eventstats latest(_time) as timestamp | where _time=timestamp 
+| eval t=now()
+| eval status=case((t >= start_time AND t <= end_time), "In Progress")
+| table name status
+| search status = "In Progress"
+| append [|stats count |eval name="Vacant"]
+| head 1
+| eval range=if(name=="Vacant", "low", "severe")
+
+
+
+
+
+<dashboard theme="dark" hideEdit="yes">
+  <label>BUATC Building - Perl Meeting Room - CAP 28</label>
+  <description></description>
+  <row>
+    <panel>
+      <title></title>
+      <single>
+        <title>Current Occupancy</title>
+        <search>
+          <query>index="meet-book" area_name="BUATC" room_name="PEARL CAP-28" | eventstats latest(_time) as timestamp | where _time=timestamp 
+| eval t=now()
+| eval status=case((t &gt;= start_time AND t &lt;= end_time), "In Progress")
+| table name status
+| search status = "In Progress"
+| append [|stats count |eval name="Vacant"]
+| head 1
+| eval range=if(name=="Vacant", "low", "severe")</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="unitPosition">after</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title></title>
+      <table>
+        <title>Today's Bookings</title>
+        <search>
+          <query>index="meet-book" area_name="BUATC" room_name = "PEARL CAP-28" | eventstats latest(_time) as timestamp | where _time=timestamp 
+| eval start_time_human=strftime(start_time, "%d-%m-%Y %H:%M")
+| eval end_time_human=strftime(end_time, "%d-%m-%Y %H:%M")
+| eval t=now()
+| eval status=case((t &gt;= start_time AND t &lt;= end_time), "In Progress", t &lt; start_time, "Waiting to start", t &gt; end_time, "Finished")
+| table room_name name start_time_human end_time_human status
+| rename room_name as Room, name as Topic, start_time_human as "Start Time", end_time_human as "End Time", status as Status</query>
+          <earliest>@d</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">100</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="status">
+          <colorPalette type="map">{"In Progress":#DC4E41,"Finished":#708794,"Waiting to start":#006D9C}</colorPalette>
+        </format>
+        <format type="color" field="Status">
+          <colorPalette type="map">{"In Progress":#DC4E41,"Finished":#708794,"Waiting to start":#006D9C}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+</dashboard>
