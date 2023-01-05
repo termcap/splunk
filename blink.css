@@ -1,0 +1,118 @@
+table td { 
+        font-size: 18px; 
+        font-family: verdana, arial, sans-serif;
+        color: white !important;
+}
+
+h1 {
+        font-size: 40px;
+        line-height: 44px;
+        color: #daa520;
+        text-align: center;
+}
+
+.dashboard-row .dashboard-panel .panel-head h3 {
+        font-size: 32px;
+        font-weight:bold;
+        padding-top: 30px;
+}
+
+#oitable table td:nth-child(1) {
+        text-decoration: underline;
+}
+
+
+#oitable table {
+        border-collapse: collapse;
+}
+
+#oitable table tr {
+        border: 0.01em groove #7f80823b;
+}
+
+#oitable table tr:first-child {
+  border-top: 0;
+}
+
+#oitable table tr {
+  border-left: 0;
+  border-right: 0;
+}
+
+#oitable table tr:last-child {
+  border-bottom: 0;
+}
+
+#oitable table th { 
+        font-size: 18px; 
+        font-family: verdana, arial, sans-serif;
+//      color: #cb9f45;
+        font-weight: bold;
+}
+
+.css_for_eff{ 
+        background-color:#3a8e40 !important;
+        color: white !important;
+}
+//.css_for_s_tday{ 
+//      background-color:#00FF00 !important;
+//      color: black;
+//}
+.css_for_can{
+        background-color:#7b827d !important;
+        color: white !important;
+}
+.css_for_can_tday{
+        background-color:#dc4e41 !important;
+}
+.css_for_term{
+        background-color:#dc4e41 !important;
+}
+.css_for_rep{
+        background-color:#dc4e41 !important;
+}
+.css_for_e_tday{
+        background-color:#FFFF00 !important;
+        color: black !important;
+}
+.css_for_after{
+        background-color:#00BFFF !important;
+        color: black !important;
+}
+.css_for_grey{
+        background-color:#FFC0CB !important;
+        color: black !important;
+}
+.css_status_color_for_e_tday{
+        color: black !important;
+}
+.css_status_color_for_s_tday{
+        color: black !important;
+}
+.css_status_color_for_after{
+        color: black !important;
+}
+.css_for_starting_today{
+        //background-color:#00FF00 !important;
+    color: black !important;
+    -webkit-animation: blinkprogress 2s infinite;  /* Safari 4+ */
+    -moz-animation: blinkprogress 2s infinite;  /* Fx 5+ */
+    -o-animation: blinkprogress 2s infinite;  /* Opera 12+ */
+    animation: blinkprogress 2s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes blinkprogress {
+  0%, 49% {
+    background-color: #00FF00;
+    color: black !important;
+  }
+  50%, 100% {
+    background-color: #3a8e40;
+    color: white !important;
+  }
+}
+
+@keyframes blinkingBackground{
+        0%      { background-color: #00FF00;}
+        100%        { background-color: #3a8e40;}
+}
